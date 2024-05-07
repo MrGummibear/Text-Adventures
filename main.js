@@ -30,13 +30,32 @@ class Paladin extends Player {
         this.hp = 900;
         this.attack = 8;
         this.defense = 5;
-        this.startItem = "Schwert";
+        this.startItem = "Langschwert";
         this.abilities = [
             {
-                name: "---",
-                damage: 25,
+                name: "Kreuzfahrerhieb",
+                damage: 50,
+                details: `Umhüllt die Waffe mit heiliger kraft, schlägt dann zu und verursachst: ${this.damage} Schaden`,
+            },
+            {
+                name: "Göttlicher Angriff",
+                damage: 50,
+                details: `Bündelt seine heilige Kraft in einem Stahl, entfesselt diesen auf seinen Gegner und verursachst: ${this.damage} Schaden`,
+            },
+            {
+                name: "Göttliches Urteil",
+                damage: 50,
+                details: `Bringt die Schandtaten des Gegners hervor und verursachst: ${this.damage} Schaden`,
+            },
+            {
+                name: "Heilige Hand",
+                heal: 50,
+                details: `Heilt sich selbst mit seiner heilige macht um ${this.heal} HP`,
             },
         ];
+        // Die Schadens- und Heilungswerte können erst nach der Initialisierung der Fähigkeiten berechnet werden
+        this.damage = this.attack + this.abilities[0].damage; // Beispiel: Zugriff auf den Schaden des ersten Angriffs
+        this.heal = this.abilities[3].heal; // Beispiel: Zugriff auf die Heilung der letzten Fähigkeit
     }
 }
 
@@ -150,38 +169,16 @@ class Game {
 
     startGameWithClassSelection() {
         term.clear();
-        term.slowTyping(
-            "Hallo, Fremdling, du hast mich erschreckt!!\n",
-            {
-                speed: 10,
-                style: term.cyan,
-            },
-            () => {
-                term.slowTyping(
-                    "Wie ist dein Name?\n",
-                    {
-                        speed: 10,
-                        style: term.cyan,
-                    },
-                    () => {
-                        rl.question("", (name) => {
-                            this.player = new Player(name); // Spieler erstellen
-                            term.clear();
-                            term.slowTyping(
-                                `Willkommen, ${this.player.name}! Teile uns doch mit,\nin welchem Handwerk du besonders bewandert bist!!\n`,
-                                {
-                                    speed: 10,
-                                    style: term.cyan,
-                                },
-                                () => {
-                                    this.displayClassMenu(); // Klassenmenü anzeigen
-                                }
-                            );
-                        });
-                    }
-                );
-            }
-        );
+        term.cyan("Hallo, Fremdling, du hast mich erschreckt!!\n");
+        term.cyan("Wie ist dein Name?\n");
+        rl.question("", (name) => {
+            this.player = new Player(name); // Spieler erstellen
+            term.clear();
+            term.cyan(
+                `Willkommen, ${this.player.name}! Teile uns doch mit,\nin welchem Handwerk du besonders bewandert bist!!\n`
+            );
+            this.displayClassMenu(); // Klassenmenü anzeigen
+        });
     }
 
     displayClassMenu() {
@@ -209,53 +206,18 @@ class Game {
 
     confirmStart() {
         term.clear();
-        term.slowTyping(
-            `Willkommen im Dorf der Anfänge, ${this.player.name}!\n`,
-            {
-                speed: 10,
-                style: term.cyan,
-            },
-            () => {
-                term.slowTyping(
-                    `Möchtest du deine Reise beginnen?`,
-                    {
-                        speed: 10,
-                        style: term.cyan,
-                    },
-                    () => {
-                        term.singleColumnMenu(
-                            ["Ja", "Nein"],
-                            (error, response) => {
-                                if (response.selectedText.trim() === "Ja") {
-                                    term.clear();
-                                    term.slowTyping(
-                                        `Viel Erfolg auf deinen Reisen!\n`,
-                                        {
-                                            speed: 10,
-                                            style: term.cyan,
-                                        },
-                                        () => {
-                                            this.displayMenu();
-                                        }
-                                    );
-                                } else {
-                                    term.slowTyping(
-                                        `Bis bald!\n`,
-                                        {
-                                            speed: 10,
-                                            style: term.cyan,
-                                        },
-                                        () => {
-                                            process.exit();
-                                        }
-                                    );
-                                }
-                            }
-                        );
-                    }
-                );
+        term.cyan(`Willkommen im Dorf der Anfänge, ${this.player.name}!\n`);
+        term.cyan(`Möchtest du deine Reise beginnen?`);
+        term.singleColumnMenu(["Ja", "Nein"], (error, response) => {
+            if (response.selectedText.trim() === "Ja") {
+                term.clear();
+                term.cyan(`Viel Erfolg auf deinen Reisen!\n`);
+                this.displayMenu();
+            } else {
+                term.cyan(`Bis bald!\n`);
+                process.exit();
             }
-        );
+        });
     }
 
     displayLocation(location) {
@@ -276,16 +238,8 @@ class Game {
         term.singleColumnMenu(["Einpacken"], (error, response) => {
             if (response.selectedText.trim() === "Einpacken") {
                 term.clear();
-                term.slowTyping(
-                    `Gegenstände wurden in dein Inventar gepackt\n`,
-                    {
-                        speed: 10,
-                        style: term.cyan,
-                    },
-                    () => {
-                        this.displayMenu();
-                    }
-                );
+                term.cyan(`Gegenstände wurden in dein Inventar gepackt\n`);
+                this.displayMenu();
             }
         });
     }
@@ -328,19 +282,69 @@ class Game {
         }
     }
 
+    lookAround() {
+        const currentLocation = this.player.currentLocation;
+        const directions = ["Norden", "Osten", "Süden", "Westen"];
+        term.clear();
+        term.cyan("Du siehst dich um und siehst:\n");
+
+        directions.forEach((direction) => {
+            const [row, col] = currentLocation.split(".");
+            let newRow = row.charCodeAt(0);
+            let newCol = parseInt(col);
+
+            if (direction === "Norden") {
+                newCol--;
+            } else if (direction === "Süden") {
+                newCol++;
+            } else if (direction === "Osten") {
+                newRow++;
+            } else if (direction === "Westen") {
+                newRow--;
+            }
+
+            const newLocation = `${String.fromCharCode(newRow)}.${newCol}`;
+            if (this.locations[newLocation]) {
+                term.green(
+                    `- ${direction}: ${this.locations[newLocation].description}\n`
+                );
+            } else {
+                term.red(`- ${direction}: Blockiert\n`);
+            }
+        });
+
+        term.singleColumnMenu(["Zurück"], (error, response) => {
+            this.displayMenu();
+        });
+    }
+
     displayMenu() {
+        const options = ["Inventar", "Umsehen", "Bewegen"];
+        term.clear();
+        term.singleColumnMenu(options, (error, response) => {
+            const choice = response.selectedText.trim();
+            if (choice === "Inventar") {
+                this.displayInventory();
+            } else if (choice === "Umsehen") {
+                this.lookAround();
+            } else {
+                this.moveMenu();
+            }
+        });
+    }
+    moveMenu() {
         const direction = [
             "gehe nach norden",
             "gehe nach osten",
             "gehe nach süden",
             "gehe nach westen",
-            "Inventar",
-            "umsehen",
+            "zurück",
         ];
+        term.clear();
         term.singleColumnMenu(direction, (error, response) => {
             const choice = response.selectedText.trim();
-            if (choice === "Inventar") {
-                this.displayInventory();
+            if (choice === "zurück") {
+                this.displayMenu();
             } else {
                 this.move(choice);
             }
