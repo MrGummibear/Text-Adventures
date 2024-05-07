@@ -221,59 +221,6 @@ class Game {
         this.displayLocation(this.player.currentLocation);
         this.displayMenu(); // Menü anzeigen
     }
-
-    startFight() {
-        const enemy = this.generateRandomEnemy(); // Gegner erstellen
-        term.cyan(`Ein ${enemy.name} erscheint und greift dich an!\n`);
-        term.cyan(`Du stehst bereit zum Kampf!\n`);
-
-        // Spieler wählt eine Fähigkeit aus
-        term.singleColumnMenu(
-            this.player.abilities.map((ability) => ability.name),
-            (error, response) => {
-                const chosenAbility =
-                    this.player.abilities[response.selectedIndex];
-                term.cyan(`Du setzt ${chosenAbility.name} ein!\n`);
-
-                // Gegner führt zufälligen Angriff aus
-                const enemyAttack = enemy.performRandomAttack();
-
-                // Berechne den verursachten Schaden
-                const damageDealtByPlayer = chosenAbility.damage;
-                const damageTakenByPlayer = enemyAttack;
-
-                // Zeige die Ergebnisse
-                term.cyan(`Du erleidest ${damageTakenByPlayer} Schaden!\n`);
-                term.cyan(`Du fügst ${damageDealtByPlayer} Schaden zu!\n`);
-
-                // Aktualisiere die Lebenspunkte
-                this.player.hp -= damageTakenByPlayer;
-                enemy.hp -= damageDealtByPlayer;
-
-                // Überprüfe, ob der Kampf vorbei ist
-                if (this.player.hp <= 0) {
-                    term.red(`Du bist besiegt!\n`);
-                    process.exit();
-                } else if (enemy.hp <= 0) {
-                    term.green(`Du hast den Gegner besiegt!\n`);
-                    process.exit();
-                } else {
-                    // Starte den nächsten Kampfzug
-                    this.startFight();
-                }
-            }
-        );
-    }
-
-    generateRandomEnemy() {
-        const enemies = [
-            new Enemy("Ork", 100, 10),
-            new Enemy("Goblin", 80, 8),
-            new Enemy("Drache", 150, 15),
-        ];
-        const randomIndex = Math.floor(Math.random() * enemies.length);
-        return enemies[randomIndex];
-    }
 }
 const game = new Game();
 game.startGameWithClassSelection();
