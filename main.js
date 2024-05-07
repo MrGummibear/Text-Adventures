@@ -66,7 +66,7 @@ class Mage extends Player {
         this.attack = 6;
         this.defense = 4;
         this.startItem = "Zauberstab";
-        this.abilities = this.abilities = [
+        this.abilities = [
             {
                 name: "Blitz schlag",
                 damage: 50,
@@ -101,7 +101,7 @@ class Waldläufer extends Player {
         this.attack = 5;
         this.defense = 6;
         this.startItem = "Bogen";
-        this.abilities = this.abilities = [
+        this.abilities = [
             {
                 name: "Wuchtpfeil",
                 damage: 50,
