@@ -88,7 +88,7 @@ function moveMenu() {
         if (choice === "zurück") {
             this.displayMenu();
         } else {
-            move.call(this, choice); // Hier das term-Objekt übergeben
+            move.call(this, choice);
         }
     });
 }

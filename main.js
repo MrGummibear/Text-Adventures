@@ -131,7 +131,7 @@ class Game {
 
     startGame() {
         this.displayLocation(this.player.currentLocation);
-        this.displayMenu(); // Menü anzeigen
+        this.displayMenu();
     }
 }
 const game = new Game(term);
