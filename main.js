@@ -369,6 +369,11 @@ class Game {
     displayMenu() {
         const options = ["Inventar", "Umsehen", "Bewegen"];
         term.clear();
+        term.cyan(
+            `Dein aktueller Standort ist: ${
+                this.locations[this.player.currentLocation].description
+            }\n`
+        );
         term.singleColumnMenu(options, (error, response) => {
             const choice = response.selectedText.trim();
             if (choice === "Inventar") {
