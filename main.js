@@ -30,11 +30,28 @@ class Paladin extends Player {
         this.hp = 900;
         this.attack = 8;
         this.defense = 5;
-        this.startItem = "Schwert";
+        this.startItem = "Langschwert";
+        this.damage = this.attack + this.abilities.damage;
         this.abilities = [
             {
-                name: "---",
-                damage: 25,
+                name: "Kreuzfahrerhieb",
+                damage: 50,
+                details: `Umhüllt die Waffe mit heiliger kraft, schlägt dann zu und verursachst: ${this.damage} Schaden`,
+            },
+            {
+                name: "Göttlicher Angriff",
+                damage: 50,
+                details: `Bündelt seine heilige Kraft in einem Stahl, entfesselt diesen auf seinen Gegner und verursachst: ${this.damage} Schaden`,
+            },
+            {
+                name: "Göttliches Urteil",
+                damage: 50,
+                details: `Bringt die Schandtaten des Gegners hervor und verursachst: ${this.damage} Schaden`,
+            },
+            {
+                name: "Heilige Hand",
+                heal: 50,
+                details: `Heilt sich selbst mit seiner heilige macht um ${this.heal} HP`,
             },
         ];
     }
@@ -328,7 +345,57 @@ class Game {
         }
     }
 
+    lookAround() {
+        const currentLocation = this.player.currentLocation;
+        const directions = ["Norden", "Osten", "Süden", "Westen"];
+        term.clear();
+        term.cyan("Du siehst dich um und siehst:\n");
+
+        directions.forEach((direction) => {
+            const [row, col] = currentLocation.split(".");
+            let newRow = row.charCodeAt(0);
+            let newCol = parseInt(col);
+
+            if (direction === "Norden") {
+                newCol--;
+            } else if (direction === "Süden") {
+                newCol++;
+            } else if (direction === "Osten") {
+                newRow++;
+            } else if (direction === "Westen") {
+                newRow--;
+            }
+
+            const newLocation = `${String.fromCharCode(newRow)}.${newCol}`;
+            if (this.locations[newLocation]) {
+                term.green(
+                    `- ${direction}: ${this.locations[newLocation].description}\n`
+                );
+            } else {
+                term.red(`- ${direction}: Blockiert\n`);
+            }
+        });
+
+        term.singleColumnMenu(["Zurück"], (error, response) => {
+            this.displayMenu();
+        });
+    }
+
     displayMenu() {
+        const options = ["Inventar", "Umsehen", "Bewegen"];
+        term.clear();
+        term.singleColumnMenu(options, (error, response) => {
+            const choice = response.selectedText.trim();
+            if (choice === "Inventar") {
+                this.displayInventory();
+            } else if (choice === "Umsehen") {
+                this.lookAround();
+            } else {
+                this.moveMenu();
+            }
+        });
+    }
+    moveMenu() {
         const direction = [
             "gehe nach norden",
             "gehe nach osten",
@@ -337,6 +404,7 @@ class Game {
             "Inventar",
             "umsehen",
         ];
+        term.clear();
         term.singleColumnMenu(direction, (error, response) => {
             const choice = response.selectedText.trim();
             if (choice === "Inventar") {
