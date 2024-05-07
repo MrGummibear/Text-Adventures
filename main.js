@@ -65,8 +65,32 @@ class Mage extends Player {
         this.hp = 600;
         this.attack = 6;
         this.defense = 4;
-        this.startItem = "Stab";
-        this.abilities = [];
+        this.startItem = "Zauberstab";
+        this.abilities = this.abilities = [
+            {
+                name: "Blitz schlag",
+                damage: 50,
+                details: `Ihr sammelt magische kraft entfesselt dies blitzartig, ein Blitz schlägt auf euren Feind ein und verursachst: ${this.damage} Schaden`,
+            },
+            {
+                name: "Feuerball",
+                damage: 50,
+                details: `Ihr schleudert einen Ball aus Feuer auf euren Gegner und verursachst: ${this.damage} Schaden`,
+            },
+            {
+                name: "Frost Orb",
+                damage: 50,
+                details: `Ihr sammelt das Wasser aus der Luft, wandelt es mithilfe eurer magischen Kraft in einen eisigen Kristall, feuert diesen ab und verursachst: ${this.damage} Schaden`,
+            },
+            {
+                name: "Elementarer Orkan",
+                damage: 50,
+                details: `Ihr manifestiert eure magische kraft, sammelt dies an und entfesselt diese in einem Orkan und verursachst: ${this.damage} Schaden`,
+            },
+        ];
+        // Die Schadens- und Heilungswerte können erst nach der Initialisierung der Fähigkeiten berechnet werden
+        this.damage = this.attack + this.abilities[0].damage; // Beispiel: Zugriff auf den Schaden des ersten Angriffs
+        this.heal = this.abilities[3].heal; // Beispiel: Zugriff auf die Heilung der letzten Fähigkeit
     }
 }
 
@@ -77,7 +101,31 @@ class Waldläufer extends Player {
         this.attack = 5;
         this.defense = 6;
         this.startItem = "Bogen";
-        this.abilities = [];
+        this.abilities = this.abilities = [
+            {
+                name: "Wuchtpfeil",
+                damage: 50,
+                details: `Feuert einen mächtigen Pfeil ab und verursachst: ${this.damage} Schaden`,
+            },
+            {
+                name: "Pfeil Salve",
+                damage: 50,
+                details: `Feuert 4 Pfeile nacheinander ab und verursachst: ${this.damage} Schaden`,
+            },
+            {
+                name: "Tosender Schuss",
+                damage: 50,
+                details: `Ladet Euren Pfeil mit Energie der Waldgeister auf bevor Ihr diesen abfeuert und verursachst: ${this.damage} Schaden`,
+            },
+            {
+                name: "Bindender Pfeil",
+                damage: 50,
+                details: `Feuert einen Schlingenpfeil ab, der Ranken aus der Erde erscheinen lässt, der getroffene Feinde umschlingt und verursachst: ${this.damage} Schaden`,
+            },
+        ];
+        // Die Schadens- und Heilungswerte können erst nach der Initialisierung der Fähigkeiten berechnet werden
+        this.damage = this.attack + this.abilities[0].damage; // Beispiel: Zugriff auf den Schaden des ersten Angriffs
+        this.heal = this.abilities[3].heal; // Beispiel: Zugriff auf die Heilung der letzten Fähigkeit
     }
 }
 
