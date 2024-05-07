@@ -1,232 +1,227 @@
 const enemys = {
     Spinne: {
-        constructor() {
-            this.hp = 300;
-            this.attack = 10;
-            this.defense = 5;
-            this.abilities = [
-                {
-                    name: "Biss",
-                    damage: 25,
-                    details: `Beißt dich mit ihren spitzen Zähnen und verursachst: ${this.damage} Schaden`,
-                },
-                {
-                    name: "Gift Faden",
-                    damage: 30,
-                    details: `Verschießt kleine giftige Fäden und verursachst: ${this.damage} Schaden`,
-                },
-                {
-                    name: "Spuck Ball",
-                    damage: 35,
-                    details: `Verschießt ein Gemisch aus Speichel und Fäden und verursachst: ${this.damage} Schaden`,
-                },
-            ];
-            this.damage = this.attack + this.abilities[0].damage; // Beispiel: Zugriff auf den Schaden des ersten Angriffs
-        },
+        hp: 300,
+        attack: 10,
+        defense: 5,
+        abilities: [
+            {
+                name: "Biss",
+                damage: 25,
+                details:
+                    "Beißt dich mit ihren spitzen Zähnen und verursacht: 25 Schaden",
+            },
+            {
+                name: "Gift Faden",
+                damage: 30,
+                details:
+                    "Verschießt kleine giftige Fäden und verursacht: 30 Schaden",
+            },
+            {
+                name: "Spuck Ball",
+                damage: 35,
+                details:
+                    "Verschießt ein Gemisch aus Speichel und Fäden und verursacht: 35 Schaden",
+            },
+        ],
     },
     Kobold: {
-        constructor() {
-            this.hp = 450;
-            this.attack = 12;
-            this.defense = 5;
-            this.abilities = [
-                {
-                    name: "Hieb",
-                    damage: 25,
-                    details: `Schlägt mit seinem Holzknüppel auf dich ein und verursachst: ${this.damage} Schaden`,
-                },
-                {
-                    name: "Sturmangriff",
-                    damage: 30,
-                    details: `Stürmt auf dich zu, schlägt mit seinem Holzknüppel sehr hart zu und verursachst: ${this.damage} Schaden`,
-                },
-                {
-                    name: "Kopfstoß",
-                    damage: 35,
-                    details: `Er packt dich an deinem schultern, versetzt dir einen mächtigen Kopfstoß und verursachst: ${this.damage} Schaden`,
-                },
-            ];
-            this.damage = this.attack + this.abilities[0].damage; // Beispiel: Zugriff auf den Schaden des ersten Angriffs
-        },
+        hp: 450,
+        attack: 12,
+        defense: 5,
+        abilities: [
+            {
+                name: "Hieb",
+                damage: 25,
+                details:
+                    "Schlägt mit seinem Holzknüppel auf dich ein und verursacht: 25 Schaden",
+            },
+            {
+                name: "Sturmangriff",
+                damage: 30,
+                details:
+                    "Stürmt auf dich zu, schlägt mit seinem Holzknüppel sehr hart zu und verursacht: 30 Schaden",
+            },
+            {
+                name: "Kopfstoß",
+                damage: 35,
+                details:
+                    "Er packt dich an deinem Schultern, versetzt dir einen mächtigen Kopfstoß und verursacht: 35 Schaden",
+            },
+        ],
     },
     Wildschwein: {
-        constructor() {
-            this.hp = 400;
-            this.attack = 11;
-            this.defense = 5;
-            this.abilities = [
-                {
-                    name: "Hieb",
-                    damage: 25,
-                    details: `Schlägt mit seinen Hauern auf dich ein und verursachst: ${this.damage} Schaden`,
-                },
-                {
-                    name: "Sturmangriff",
-                    damage: 30,
-                    details: `Stürmt auf dich zu, schlägt mit seinen Hauern sehr hart zu und verursachst: ${this.damage} Schaden`,
-                },
-                {
-                    name: "Biss",
-                    damage: 35,
-                    details: `Beißt dich mit seinen Zähnen und verursachst: ${this.damage} Schaden`,
-                },
-            ];
-            this.damage = this.attack + this.abilities[0].damage; // Beispiel: Zugriff auf den Schaden des ersten Angriffs
-        },
+        hp: 400,
+        attack: 11,
+        defense: 5,
+        abilities: [
+            {
+                name: "Hieb",
+                damage: 25,
+                details:
+                    "Schlägt mit seinen Hauern auf dich ein und verursacht: 25 Schaden",
+            },
+            {
+                name: "Sturmangriff",
+                damage: 30,
+                details:
+                    "Stürmt auf dich zu, schlägt mit seinen Hauern sehr hart zu und verursacht: 30 Schaden",
+            },
+            {
+                name: "Biss",
+                damage: 35,
+                details:
+                    "Beißt dich mit seinen Zähnen und verursacht: 35 Schaden",
+            },
+        ],
     },
     Wolf: {
-        constructor() {
-            this.hp = 550;
-            this.attack = 15;
-            this.defense = 5;
-            this.abilities = [
-                {
-                    name: "Biss",
-                    damage: 30,
-                    details: `Beißt dich mit seinen Zähnen und verursachst: ${this.damage} Schaden`,
-                },
-                {
-                    name: "Klaue",
-                    damage: 35,
-                    details: `Greift dich mit seinen klauen an, fügt dir wunden zu und verursachst: ${this.damage} Schaden`,
-                },
-                {
-                    name: "Sprungangriff",
-                    damage: 40,
-                    details: `Springt auf dich zu, fügt dir mit dienen Klauen tiefe Wunden zu und verursachst: ${this.damage} Schaden`,
-                },
-            ];
-            this.damage = this.attack + this.abilities[0].damage; // Beispiel: Zugriff auf den Schaden des ersten Angriffs
-        },
+        hp: 550,
+        attack: 15,
+        defense: 5,
+        abilities: [
+            {
+                name: "Biss",
+                damage: 30,
+                details:
+                    "Beißt dich mit seinen Zähnen und verursacht: 30 Schaden",
+            },
+            {
+                name: "Klaue",
+                damage: 35,
+                details:
+                    "Greift dich mit seinen Klauen an, fügt dir Wunden zu und verursacht: 35 Schaden",
+            },
+            {
+                name: "Sprungangriff",
+                damage: 40,
+                details:
+                    "Springt auf dich zu, fügt dir mit seinen Klauen tiefe Wunden zu und verursacht: 40 Schaden",
+            },
+        ],
     },
     Oger: {
-        constructor() {
-            this.hp = 600;
-            this.attack = 17;
-            this.defense = 5;
-            this.abilities = [
-                {
-                    name: "Hieb",
-                    damage: 35,
-                    details: `Schlägt mit seinem Holzknüppel auf dich ein und verursachst: ${this.damage} Schaden`,
-                },
-                {
-                    name: "Schultercheck",
-                    damage: 40,
-                    details: `Stürmt auf dich zu, rammt seine schulter gegen deinen Oberkörper und verursachst: ${this.damage} Schaden`,
-                },
-                {
-                    name: "Schwerer Hieb",
-                    damage: 45,
-                    details: `Schlägt mächtig mit seinem Holzknüppel auf dich ein und verursachst: ${this.damage} Schaden`,
-                },
-            ];
-            this.damage = this.attack + this.abilities[0].damage; // Beispiel: Zugriff auf den Schaden des ersten Angriffs
-        },
+        hp: 600,
+        attack: 17,
+        defense: 5,
+        abilities: [
+            {
+                name: "Hieb",
+                damage: 35,
+                details:
+                    "Schlägt mit seinem Holzknüppel auf dich ein und verursacht: 35 Schaden",
+            },
+            {
+                name: "Schultercheck",
+                damage: 40,
+                details:
+                    "Stürmt auf dich zu, rammt seine Schulter gegen deinen Oberkörper und verursacht: 40 Schaden",
+            },
+            {
+                name: "Schwerer Hieb",
+                damage: 45,
+                details:
+                    "Schlägt mächtig mit seinem Holzknüppel auf dich ein und verursacht: 45 Schaden",
+            },
+        ],
     },
     Troll: {
-        constructor() {
-            this.hp = 650;
-            this.attack = 18;
-            this.defense = 5;
-            this.abilities = [
-                {
-                    name: "Wurfaxt",
-                    damage: 35,
-                    details: `Wirft seine Axt nach dir und verursachst: ${this.damage} Schaden`,
-                },
-                {
-                    name: "Axthieb",
-                    damage: 40,
-                    details: `Schlägt mit seiner Axt zu und verursachst: ${this.damage} Schaden`,
-                },
-                {
-                    name: "Axt Kombo",
-                    damage: 45,
-                    details: `Schlägt schnell mehrfach mit der Axt zu und verursachst: ${this.damage} Schaden`,
-                },
-            ];
-            this.damage = this.attack + this.abilities[0].damage; // Beispiel: Zugriff auf den Schaden des ersten Angriffs
-        },
+        hp: 650,
+        attack: 18,
+        defense: 5,
+        abilities: [
+            {
+                name: "Wurfaxt",
+                damage: 35,
+                details: "Wirft seine Axt nach dir und verursacht: 35 Schaden",
+            },
+            {
+                name: "Axthieb",
+                damage: 40,
+                details: "Schlägt mit seiner Axt zu und verursacht: 40 Schaden",
+            },
+            {
+                name: "Axt Kombo",
+                damage: 45,
+                details:
+                    "Schlägt schnell mehrfach mit der Axt zu und verursacht: 45 Schaden",
+            },
+        ],
     },
     Bär: {
-        constructor() {
-            this.hp = 600;
-            this.attack = 16;
-            this.defense = 5;
-            this.abilities = [
-                {
-                    name: "Biss",
-                    damage: 30,
-                    details: `Beißt dich mit seinen Zähnen und verursachst: ${this.damage} Schaden`,
-                },
-                {
-                    name: "Pranke",
-                    damage: 40,
-                    details: `Greift dich mit seinen Pranke an, fügt dir wunden zu und verursachst: ${this.damage} Schaden`,
-                },
-                {
-                    name: "Schwerer Pranken Hieb",
-                    damage: 45,
-                    details: `Holt weit aus, um mit seinen schweren Pranken zuzuschlagen und verursachst: ${this.damage} Schaden`,
-                },
-            ];
-            this.damage = this.attack + this.abilities[0].damage; // Beispiel: Zugriff auf den Schaden des ersten Angriffs
-        },
+        hp: 600,
+        attack: 16,
+        defense: 5,
+        abilities: [
+            {
+                name: "Biss",
+                damage: 30,
+                details:
+                    "Beißt dich mit seinen Zähnen und verursacht: 30 Schaden",
+            },
+            {
+                name: "Pranke",
+                damage: 40,
+                details:
+                    "Greift dich mit seinen Pranke an, fügt dir Wunden zu und verursacht: 40 Schaden",
+            },
+            {
+                name: "Schwerer Pranken Hieb",
+                damage: 45,
+                details:
+                    "Holt weit aus, um mit seinen schweren Pranken zuzuschlagen und verursacht: 45 Schaden",
+            },
+        ],
     },
+    // v muss noch bearbeitet werden v
     Urwalddrache: {
-        constructor() {
-            this.hp = 900;
-            this.attack = 8;
-            this.defense = 5;
-            this.abilities = [
-                {
-                    name: "Kreuzfahrerhieb",
-                    damage: 50,
-                    details: `Umhüllt die Waffe mit heiliger kraft, schlägt dann zu und verursachst: ${this.damage} Schaden`,
-                },
-                {
-                    name: "Göttlicher Angriff",
-                    damage: 50,
-                    details: `Bündelt seine heilige Kraft in einem Stahl, entfesselt diesen auf seinen Gegner und verursachst: ${this.damage} Schaden`,
-                },
-                {
-                    name: "Göttliches Urteil",
-                    damage: 50,
-                    details: `Bringt die Schandtaten des Gegners hervor und verursachst: ${this.damage} Schaden`,
-                },
-            ];
-            // Die Schadens- und Heilungswerte können erst nach der Initialisierung der Fähigkeiten berechnet werden
-            this.damage = this.attack + this.abilities[0].damage; // Beispiel: Zugriff auf den Schaden des ersten Angriffs
-            this.heal = this.abilities[3].heal; // Beispiel: Zugriff auf die Heilung der letzten Fähigkeit
-        },
+        hp: 900,
+        attack: 8,
+        defense: 5,
+        abilities: [
+            {
+                name: "Kreuzfahrerhieb",
+                damage: 50,
+                details:
+                    "Umhüllt die Waffe mit heiliger Kraft, schlägt dann zu und verursacht: 50 Schaden",
+            },
+            {
+                name: "Göttlicher Angriff",
+                damage: 50,
+                details:
+                    "Bündelt seine heilige Kraft in einem Stahl, entfesselt diesen auf seinen Gegner und verursacht: 50 Schaden",
+            },
+            {
+                name: "Göttliches Urteil",
+                damage: 50,
+                details:
+                    "Bringt die Schandtaten des Gegners hervor und verursacht: 50 Schaden",
+            },
+        ],
     },
     Wasserdrache: {
-        constructor() {
-            this.hp = 900;
-            this.attack = 8;
-            this.defense = 5;
-            this.abilities = [
-                {
-                    name: "Kreuzfahrerhieb",
-                    damage: 50,
-                    details: `Umhüllt die Waffe mit heiliger kraft, schlägt dann zu und verursachst: ${this.damage} Schaden`,
-                },
-                {
-                    name: "Göttlicher Angriff",
-                    damage: 50,
-                    details: `Bündelt seine heilige Kraft in einem Stahl, entfesselt diesen auf seinen Gegner und verursachst: ${this.damage} Schaden`,
-                },
-                {
-                    name: "Göttliches Urteil",
-                    damage: 50,
-                    details: `Bringt die Schandtaten des Gegners hervor und verursachst: ${this.damage} Schaden`,
-                },
-            ];
-            // Die Schadens- und Heilungswerte können erst nach der Initialisierung der Fähigkeiten berechnet werden
-            this.damage = this.attack + this.abilities[0].damage; // Beispiel: Zugriff auf den Schaden des ersten Angriffs
-            this.heal = this.abilities[3].heal; // Beispiel: Zugriff auf die Heilung der letzten Fähigkeit
-        },
+        hp: 900,
+        attack: 8,
+        defense: 5,
+        abilities: [
+            {
+                name: "Kreuzfahrerhieb",
+                damage: 50,
+                details:
+                    "Umhüllt die Waffe mit heiliger Kraft, schlägt dann zu und verursacht: 50 Schaden",
+            },
+            {
+                name: "Göttlicher Angriff",
+                damage: 50,
+                details:
+                    "Bündelt seine heilige Kraft in einem Stahl, entfesselt diesen auf seinen Gegner und verursacht: 50 Schaden",
+            },
+            {
+                name: "Göttliches Urteil",
+                damage: 50,
+                details:
+                    "Bringt die Schandtaten des Gegners hervor und verursacht: 50 Schaden",
+            },
+        ],
     },
 };
 
