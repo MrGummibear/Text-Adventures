@@ -338,14 +338,13 @@ class Game {
             "gehe nach osten",
             "gehe nach süden",
             "gehe nach westen",
-            "Inventar",
-            "umsehen",
+            "zurück",
         ];
         term.clear();
         term.singleColumnMenu(direction, (error, response) => {
             const choice = response.selectedText.trim();
-            if (choice === "Inventar") {
-                this.displayInventory();
+            if (choice === "zurück") {
+                this.displayMenu();
             } else {
                 this.move(choice);
             }
