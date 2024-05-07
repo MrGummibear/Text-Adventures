@@ -1,17 +1,7 @@
 const term = require("terminal-kit").terminal;
 const readline = require("readline");
 const { Paladin, Mage, Waldläufer, Player } = require("./klassen.js");
-const {
-    Spinne,
-    Kobold,
-    Wildschwein,
-    Wolf,
-    Oger,
-    Troll,
-    Bär,
-    Urwalddrache,
-    Wasserdrache,
-} = require("./enemy.js");
+const enemys = require("./enemy.js");
 const locations = require("./locations.js");
 const items = require("./items.js");
 
