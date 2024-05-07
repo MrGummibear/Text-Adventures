@@ -4,6 +4,8 @@ const { Paladin, Mage, Waldläufer, Player } = require("./klassen.js");
 const enemys = require("./enemy.js");
 const locations = require("./locations.js");
 const items = require("./items.js");
+const { move, lookAround, moveMenu } = require("./movesystem.js");
+const fight = require("./kampfsystem.js");
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -11,7 +13,8 @@ const rl = readline.createInterface({
 });
 
 class Game {
-    constructor() {
+    constructor(term) {
+        this.term = term;
         this.player = null;
         this.locations = locations;
         this.objects = items;
@@ -22,12 +25,12 @@ class Game {
         term.cyan("Hallo, Fremdling, du hast mich erschreckt!!\n");
         term.cyan("Wie ist dein Name?\n");
         rl.question("", (name) => {
-            this.player = new Player(name); // Spieler erstellen
+            this.player = new Player(name);
             term.clear();
             term.cyan(
                 `Willkommen, ${this.player.name}! Teile uns doch mit,\nin welchem Handwerk du besonders bewandert bist!!\n`
             );
-            this.displayClassMenu(); // Klassenmenü anzeigen
+            this.displayClassMenu();
         });
     }
 
@@ -94,80 +97,6 @@ class Game {
         });
     }
 
-    move(direction) {
-        const [row, col] = this.player.currentLocation.split(".");
-        let newRow = row.charCodeAt(0);
-        let newCol = parseInt(col);
-
-        if (direction === "gehe nach norden") {
-            newCol--;
-        } else if (direction === "gehe nach süden") {
-            newCol++;
-        } else if (direction === "gehe nach osten") {
-            newRow++;
-        } else if (direction === "gehe nach westen") {
-            newRow--;
-        }
-
-        const newLocation = `${String.fromCharCode(newRow)}.${newCol}`;
-
-        if (this.locations[newLocation]) {
-            this.player.currentLocation = newLocation;
-            this.displayLocation(newLocation);
-            if (this.locations[newLocation].chest) {
-                const choiceItems = ["Aufschließen", "Weitermachen"];
-                term.singleColumnMenu(choiceItems, (error, response) => {
-                    if (response.selectedText === "Aufschließen") {
-                        this.openChest(newLocation);
-                    } else {
-                        this.displayMenu();
-                    }
-                });
-            } else {
-                this.displayMenu();
-            }
-        } else {
-            term.red(`Der Weg ist blockiert. Bitte wähle einen anderen!\n`);
-            this.displayMenu();
-        }
-    }
-
-    lookAround() {
-        const currentLocation = this.player.currentLocation;
-        const directions = ["Norden", "Osten", "Süden", "Westen"];
-        term.clear();
-        term.cyan("Du siehst dich um und siehst:\n");
-
-        directions.forEach((direction) => {
-            const [row, col] = currentLocation.split(".");
-            let newRow = row.charCodeAt(0);
-            let newCol = parseInt(col);
-
-            if (direction === "Norden") {
-                newCol--;
-            } else if (direction === "Süden") {
-                newCol++;
-            } else if (direction === "Osten") {
-                newRow++;
-            } else if (direction === "Westen") {
-                newRow--;
-            }
-
-            const newLocation = `${String.fromCharCode(newRow)}.${newCol}`;
-            if (this.locations[newLocation]) {
-                term.green(
-                    `- ${direction}: ${this.locations[newLocation].description}\n`
-                );
-            } else {
-                term.red(`- ${direction}: Blockiert\n`);
-            }
-        });
-
-        term.singleColumnMenu(["Zurück"], (error, response) => {
-            this.displayMenu();
-        });
-    }
-
     displayMenu() {
         const options = ["Inventar", "Umsehen", "Bewegen"];
         term.clear();
@@ -188,23 +117,16 @@ class Game {
         });
     }
 
+    move(direction) {
+        move.call(direction);
+    }
+
+    lookAround() {
+        lookAround.call(this);
+    }
+
     moveMenu() {
-        const direction = [
-            "gehe nach norden",
-            "gehe nach osten",
-            "gehe nach süden",
-            "gehe nach westen",
-            "zurück",
-        ];
-        term.clear();
-        term.singleColumnMenu(direction, (error, response) => {
-            const choice = response.selectedText.trim();
-            if (choice === "zurück") {
-                this.displayMenu();
-            } else {
-                this.move(choice);
-            }
-        });
+        moveMenu.call(this);
     }
 
     startGame() {
@@ -212,5 +134,5 @@ class Game {
         this.displayMenu(); // Menü anzeigen
     }
 }
-const game = new Game();
+const game = new Game(term);
 game.startGameWithClassSelection();
