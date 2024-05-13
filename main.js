@@ -5,7 +5,7 @@ const { normalEnemys, endEnemys } = require("./enemy.js");
 const locations = require("./locations.js");
 const items = require("./items.js");
 const { move, lookAround, moveMenu } = require("./movesystem.js");
-const fight = require("./kampfsystem.js");
+//const fight = require("./kampfsystem.js");
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -93,6 +93,7 @@ class Game {
                 term.clear();
                 term.cyan(`Gegenstände wurden in dein Inventar gepackt\n`);
                 this.displayMenu();
+                this.player.inventory.push(...chestContents);
             }
         });
     }
@@ -114,6 +115,26 @@ class Game {
             }
         });
     }
+
+    displayInventory() {
+        console.info("Inventory: ", this.player.inventory);
+
+            const options = ["", "zurück"];
+            term.clear();
+            //console.log(this.player.inventory);
+            term.singleColumnMenu([...this.player.inventory, ...options], (error, response) => {
+                const choice = response.selectedText.trim();
+                if (choice === "Inventar") {
+                    this.displayInventory();
+                } else if (choice === "Umsehen") {
+                    this.lookAround();
+                } else {
+                    this.moveMenu();
+                }
+            });
+
+
+        }
 
     move(direction) {
         move.call(direction);

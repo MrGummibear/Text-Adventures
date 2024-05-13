@@ -1,3 +1,5 @@
+const items = require("./items.js");
+
 const locations = {
     "i.2": {
         name: "Shop",
@@ -13,6 +15,9 @@ const locations = {
         name: "Kreuzung",
         entery: "Du betrittst die Kreuzung",
         description: "----",
+        chest: {
+            contents: [items.items, items.coin, items.sword],
+        },
     },
     "j.4": {
         name: "Wald 1",
