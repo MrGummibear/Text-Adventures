@@ -1,3 +1,5 @@
+const items = require("./items.js");
+
 class Player {
     constructor(name, characterClass) {
         this.name = name;
@@ -27,17 +29,17 @@ class Paladin extends Player {
             {
                 name: "Kreuzfahrerhieb",
                 damage: 50,
-                details: `Umhüllt die Waffe mit heiliger kraft, schlägt dann zu und verursachst: ${this.damage} Schaden`,
+                details: `Umhüllt die Waffe mit heiliger kraft, schlägt dann zu und verursachst:`,
             },
             {
                 name: "Göttlicher Angriff",
                 damage: 50,
-                details: `Bündelt seine heilige Kraft in einem Stahl, entfesselt diesen auf seinen Gegner und verursachst: ${this.damage} Schaden`,
+                details: `Bündelt seine heilige Kraft in einem Stahl, entfesselt diesen auf seinen Gegner und verursachst:`,
             },
             {
                 name: "Göttliches Urteil",
                 damage: 50,
-                details: `Bringt die Schandtaten des Gegners hervor und verursachst: ${this.damage} Schaden`,
+                details: `Bringt die Schandtaten des Gegners hervor und verursachst:`,
             },
             {
                 name: "Heilige Hand",
@@ -46,7 +48,6 @@ class Paladin extends Player {
             },
         ];
         this.damage = this.attack + this.abilities[0].damage; // Beispiel: Zugriff auf den Schaden des ersten Angriffs
-        this.heal = this.abilities[3].heal; // Beispiel: Zugriff auf die Heilung der letzten Fähigkeit
     }
 }
 
@@ -60,23 +61,23 @@ class Mage extends Player {
         this.abilities = [
             {
                 name: "Blitz schlag",
-                damage: 50,
-                details: `Ihr sammelt magische kraft entfesselt dies blitzartig, ein Blitz schlägt auf euren Feind ein und verursachst: ${this.damage} Schaden`,
+                damage: 45,
+                details: `Ihr sammelt magische kraft entfesselt dies blitzartig, ein Blitz schlägt auf euren Feind ein und verursachst:`,
             },
             {
                 name: "Feuerball",
-                damage: 50,
-                details: `Ihr schleudert einen Ball aus Feuer auf euren Gegner und verursachst: ${this.damage} Schaden`,
+                damage: 55,
+                details: `Ihr schleudert einen Ball aus Feuer auf euren Gegner und verursachst:`,
             },
             {
                 name: "Frost Orb",
-                damage: 50,
-                details: `Ihr sammelt das Wasser aus der Luft, wandelt es mithilfe eurer magischen Kraft in einen eisigen Kristall, feuert diesen ab und verursachst: ${this.damage} Schaden`,
+                damage: 65,
+                details: `Ihr sammelt das Wasser aus der Luft, wandelt es mithilfe eurer magischen Kraft in einen eisigen Kristall, feuert diesen ab und verursachst:`,
             },
             {
                 name: "Elementarer Orkan",
-                damage: 50,
-                details: `Ihr manifestiert eure magische kraft, sammelt dies an und entfesselt diese in einem Orkan und verursachst: ${this.damage} Schaden`,
+                damage: 70,
+                details: `Ihr manifestiert eure magische kraft, sammelt dies an und entfesselt diese in einem Orkan und verursachst:`,
             },
         ];
         this.damage = this.attack + this.abilities[0].damage; // Beispiel: Zugriff auf den Schaden des ersten Angriffs
@@ -93,23 +94,23 @@ class Waldläufer extends Player {
         this.abilities = [
             {
                 name: "Wuchtpfeil",
-                damage: 50,
-                details: `Feuert einen mächtigen Pfeil ab und verursachst: ${this.damage} Schaden`,
+                damage: 45,
+                details: `Feuert einen mächtigen Pfeil ab und verursachst:`,
             },
             {
                 name: "Pfeil Salve",
-                damage: 50,
-                details: `Feuert 4 Pfeile nacheinander ab und verursachst: ${this.damage} Schaden`,
+                damage: 55,
+                details: `Feuert 4 Pfeile nacheinander ab und verursachst:`,
             },
             {
                 name: "Tosender Schuss",
-                damage: 50,
-                details: `Ladet Euren Pfeil mit Energie der Waldgeister auf bevor Ihr diesen abfeuert und verursachst: ${this.damage} Schaden`,
+                damage: 65,
+                details: `Ladet Euren Pfeil mit Energie der Waldgeister auf bevor Ihr diesen abfeuert und verursachst:`,
             },
             {
                 name: "Bindender Pfeil",
-                damage: 50,
-                details: `Feuert einen Schlingenpfeil ab, der Ranken aus der Erde erscheinen lässt, der getroffene Feinde umschlingt und verursachst: ${this.damage} Schaden`,
+                damage: 70,
+                details: `Feuert einen Schlingenpfeil ab, der Ranken aus der Erde erscheinen lässt, der getroffene Feinde umschlingt und verursachst:`,
             },
         ];
         this.damage = this.attack + this.abilities[0].damage; // Beispiel: Zugriff auf den Schaden des ersten Angriffs
