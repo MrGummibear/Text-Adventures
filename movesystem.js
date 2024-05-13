@@ -61,9 +61,7 @@ function lookAround() {
 
         const newLocation = `${String.fromCharCode(newRow)}.${newCol}`;
         if (this.locations[newLocation]) {
-            term.green(
-                `- ${direction}: ${this.locations[newLocation].description}\n`
-            );
+            term.green(`- ${direction}: ${this.locations[newLocation].name}\n`);
         } else {
             term.red(`- ${direction}: Blockiert\n`);
         }

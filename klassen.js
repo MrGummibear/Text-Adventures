@@ -2,8 +2,8 @@ class Player {
     constructor(name, characterClass) {
         this.name = name;
         this.characterClass = characterClass;
-        this.currentLocation = "i.3"; // Startort des Spielers
-        this.inventory = []; // Inventar des Spielers
+        this.currentLocation = "i.3";
+        this.inventory = [];
     }
 
     pickUp(item) {
@@ -45,7 +45,6 @@ class Paladin extends Player {
                 details: `Heilt sich selbst mit seiner heilige macht um ${this.heal} HP`,
             },
         ];
-        // Die Schadens- und Heilungswerte können erst nach der Initialisierung der Fähigkeiten berechnet werden
         this.damage = this.attack + this.abilities[0].damage; // Beispiel: Zugriff auf den Schaden des ersten Angriffs
         this.heal = this.abilities[3].heal; // Beispiel: Zugriff auf die Heilung der letzten Fähigkeit
     }
@@ -80,9 +79,7 @@ class Mage extends Player {
                 details: `Ihr manifestiert eure magische kraft, sammelt dies an und entfesselt diese in einem Orkan und verursachst: ${this.damage} Schaden`,
             },
         ];
-        // Die Schadens- und Heilungswerte können erst nach der Initialisierung der Fähigkeiten berechnet werden
         this.damage = this.attack + this.abilities[0].damage; // Beispiel: Zugriff auf den Schaden des ersten Angriffs
-        this.heal = this.abilities[3].heal; // Beispiel: Zugriff auf die Heilung der letzten Fähigkeit
     }
 }
 
@@ -115,9 +112,7 @@ class Waldläufer extends Player {
                 details: `Feuert einen Schlingenpfeil ab, der Ranken aus der Erde erscheinen lässt, der getroffene Feinde umschlingt und verursachst: ${this.damage} Schaden`,
             },
         ];
-        // Die Schadens- und Heilungswerte können erst nach der Initialisierung der Fähigkeiten berechnet werden
         this.damage = this.attack + this.abilities[0].damage; // Beispiel: Zugriff auf den Schaden des ersten Angriffs
-        this.heal = this.abilities[3].heal; // Beispiel: Zugriff auf die Heilung der letzten Fähigkeit
     }
 }
 

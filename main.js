@@ -1,7 +1,7 @@
 const term = require("terminal-kit").terminal;
 const readline = require("readline");
 const { Paladin, Mage, Waldläufer, Player } = require("./klassen.js");
-const enemys = require("./enemy.js");
+const { normalEnemys, endEnemys } = require("./enemy.js");
 const locations = require("./locations.js");
 const items = require("./items.js");
 const { move, lookAround, moveMenu } = require("./movesystem.js");
@@ -101,9 +101,7 @@ class Game {
         const options = ["Inventar", "Umsehen", "Bewegen"];
         term.clear();
         term.cyan(
-            `Dein aktueller Standort ist: ${
-                this.locations[this.player.currentLocation].description
-            }\n`
+            `Standort: ${this.locations[this.player.currentLocation].entery}\n`
         );
         term.singleColumnMenu(options, (error, response) => {
             const choice = response.selectedText.trim();

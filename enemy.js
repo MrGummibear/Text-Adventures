@@ -1,5 +1,6 @@
-const enemys = {
+const normalEnemys = {
     Spinne: {
+        name: "Spinne",
         hp: 300,
         attack: 10,
         defense: 5,
@@ -25,6 +26,7 @@ const enemys = {
         ],
     },
     Kobold: {
+        name: "Kobold",
         hp: 450,
         attack: 12,
         defense: 5,
@@ -50,6 +52,7 @@ const enemys = {
         ],
     },
     Wildschwein: {
+        name: "Wildschwein",
         hp: 400,
         attack: 11,
         defense: 5,
@@ -75,6 +78,7 @@ const enemys = {
         ],
     },
     Wolf: {
+        name: "Wolf",
         hp: 550,
         attack: 15,
         defense: 5,
@@ -100,6 +104,7 @@ const enemys = {
         ],
     },
     Oger: {
+        name: "Oger",
         hp: 600,
         attack: 17,
         defense: 5,
@@ -125,6 +130,7 @@ const enemys = {
         ],
     },
     Troll: {
+        name: "Troll",
         hp: 650,
         attack: 18,
         defense: 5,
@@ -148,6 +154,7 @@ const enemys = {
         ],
     },
     Bär: {
+        name: "Bär",
         hp: 600,
         attack: 16,
         defense: 5,
@@ -172,9 +179,12 @@ const enemys = {
             },
         ],
     },
-    // v muss noch bearbeitet werden v
-    Urwalddrache: {
-        hp: 900,
+};
+
+const endEnemys = {
+    Wasserdrache: {
+        name: "Wasserdrache",
+        hp: 800,
         attack: 8,
         defense: 5,
         abilities: [
@@ -198,8 +208,9 @@ const enemys = {
             },
         ],
     },
-    Wasserdrache: {
-        hp: 900,
+    Urwalddrache: {
+        name: "Urwalddrache",
+        hp: 800,
         attack: 8,
         defense: 5,
         abilities: [
@@ -225,4 +236,4 @@ const enemys = {
     },
 };
 
-module.exports = enemys;
+module.exports = { normalEnemys, endEnemys };
