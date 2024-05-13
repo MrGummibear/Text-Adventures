@@ -21,12 +21,9 @@ function move(direction) {
         this.player.currentLocation = newLocation;
         try {
             this.locations[this.player.currentLocation].onEntry();
-            console.log(this.locations[newLocation]);
-            process.exit();
+
         } catch (e) {
-            console.log(this.locations[newLocation]);
-            console.log("fail", e);
-            process.exit();
+
         }
         this.displayLocation(newLocation);
         if (this.locations[newLocation].chest) {

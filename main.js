@@ -85,7 +85,7 @@ class Game {
         const chestContents = this.locations[location].chest.contents;
         term("\nDu öffnest die Truhe und findest:\n");
         chestContents.forEach((item) => {
-            term.green(`- ${item}\n`);
+            term.green(`- ${item.name}\n`);
         });
         term("\n");
         term.singleColumnMenu(["Einpacken"], (error, response) => {
@@ -117,25 +117,38 @@ class Game {
     }
 
     displayInventory() {
-        console.info("Inventory: ", this.player.inventory);
-
-        const options = ["", "zurück"];
         term.clear();
-        //console.log(this.player.inventory);
+
+   const playerInv =  this.player.inventory.map((item) => item.name)
+        console.log( "Benutze etwas ... " )
+        const options = ["zurück"];
+        console.log( this.player.inventory)
         term.singleColumnMenu(
-            [...this.player.inventory, ...options],
+            [...playerInv, ...options],
             (error, response) => {
+              //  console.log("xxx ",response);
                 const choice = response.selectedText.trim();
-                if (choice === "Inventar") {
-                    this.displayInventory();
-                } else if (choice === "Umsehen") {
-                    this.lookAround();
+                if (choice === "zurück") {
+                    this.displayMenu();
                 } else {
-                    this.moveMenu();
+                   const x =  this.player.inventory.filter((item) => {
+                        return item.name == choice
+                   })
+                    console.log("xxx ",  this.player);
+                    if(x[0]?.atk > 0) {
+                        //console.info("waffe")
+                        this.startItem = x
+                    } else if(x[0]?.hp > 0) {
+                       // console.info("heil")
+                        this.player.hp = this.player.hp + x[0].hp
+                    }
+                    console.log(this.player);
+
                 }
             }
         );
     }
+
 
     move(direction) {
         move.call(direction);
