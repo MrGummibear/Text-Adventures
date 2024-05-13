@@ -20,6 +20,11 @@ const items = {
         hp: 35,
         goldPrice: 20,
     },
+    coin: {
+        name: "Goldmünzen",
+        amount: 1
+
+    },
 };
 
 module.exports = items;
