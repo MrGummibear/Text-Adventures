@@ -19,13 +19,6 @@ function move(direction) {
 
     if (this.locations[newLocation]) {
         this.player.currentLocation = newLocation;
-        try {
-            this.locations[this.player.currentLocation].onEntry();
-        } catch (e) {
-            console.log(this.locations[newLocation]);
-            console.log("fail", e);
-            process.exit();
-        }
         this.displayLocation(newLocation);
         if (this.locations[newLocation].chest) {
             const choiceItems = ["Aufschließen", "Weitermachen"];
@@ -44,7 +37,7 @@ function move(direction) {
         term.red(`Der Weg ist blockiert. Bitte wähle einen anderen!\n`);
         setTimeout(() => {
             this.displayMenu();
-        }, 3000); // 3000 Millisekunden Verzögerung
+        }, 2000); // 2000 Millisekunden Verzögerung
     }
 }
 

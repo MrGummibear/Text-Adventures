@@ -1,4 +1,5 @@
 const items = require("./items.js");
+const term = require("terminal-kit").terminal;
 
 class Player {
     constructor(name, characterClass) {
@@ -15,6 +16,22 @@ class Player {
 
     examine(item) {
         console.log(`Du untersuchst ${item}.`);
+    }
+
+    chooseAbility() {
+        const abilitiesMenu = this.abilities.map((ability, index) => {
+            return ability.name;
+        });
+
+        return new Promise((resolve, reject) => {
+            term.singleColumnMenu(abilitiesMenu, (error, response) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(response.selectedIndex);
+                }
+            });
+        });
     }
 }
 
@@ -57,28 +74,28 @@ class Mage extends Player {
     constructor(name) {
         super(name, "Magier");
         this.hp = 600;
-        this.attack = 6;
+        this.startItem = items.staff;
+        this.attack = 6 + this.startItem.atk;
         this.defense = 4;
-        this.startItem = "Zauberstab";
         this.abilities = [
             {
                 name: "Blitz schlag",
-                damage: 45,
+                damage: 60,
                 details: `Ihr sammelt magische kraft entfesselt dies blitzartig, ein Blitz schlägt auf euren Feind ein und verursachst:`,
             },
             {
                 name: "Feuerball",
-                damage: 55,
+                damage: 70,
                 details: `Ihr schleudert einen Ball aus Feuer auf euren Gegner und verursachst:`,
             },
             {
                 name: "Frost Orb",
-                damage: 65,
+                damage: 80,
                 details: `Ihr sammelt das Wasser aus der Luft, wandelt es mithilfe eurer magischen Kraft in einen eisigen Kristall, feuert diesen ab und verursachst:`,
             },
             {
                 name: "Elementarer Orkan",
-                damage: 70,
+                damage: 90,
                 details: `Ihr manifestiert eure magische kraft, sammelt dies an und entfesselt diese in einem Orkan und verursachst:`,
             },
         ];
@@ -90,9 +107,9 @@ class Waldläufer extends Player {
     constructor(name) {
         super(name, "Waldläufer");
         this.hp = 800;
-        this.attack = 5;
+        this.startItem = items.bogen;
+        this.attack = 5 + this.startItem.atk;
         this.defense = 6;
-        this.startItem = "Bogen";
         this.abilities = [
             {
                 name: "Wuchtpfeil",

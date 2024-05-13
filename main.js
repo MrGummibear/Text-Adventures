@@ -5,7 +5,7 @@ const { normalEnemys, endEnemys } = require("./enemy.js");
 const locations = require("./locations.js");
 const items = require("./items.js");
 const { move, lookAround, moveMenu } = require("./movesystem.js");
-//const fight = require("./kampfsystem.js");
+const { startCombat } = require("./kampfsystem.js");
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -18,6 +18,7 @@ class Game {
         this.player = null;
         this.locations = locations;
         this.objects = items;
+        this.moveCounter = 1;
     }
 
     startGameWithClassSelection() {
@@ -104,6 +105,7 @@ class Game {
         term.cyan(
             `Standort: ${this.locations[this.player.currentLocation].entery}\n`
         );
+        term.green(this.moveCounter);
         term.singleColumnMenu(options, (error, response) => {
             const choice = response.selectedText.trim();
             if (choice === "Inventar") {
@@ -141,12 +143,21 @@ class Game {
         move.call(direction);
     }
 
+    startCombat() {
+        startCombat.call(this);
+    }
+
     lookAround() {
         lookAround.call(this);
     }
 
     moveMenu() {
-        moveMenu.call(this);
+        this.moveCounter += Math.floor(Math.random() * 3) + 1;
+        if (this.moveCounter >= 10) {
+            startCombat(this.player);
+        } else {
+            moveMenu.call(this);
+        }
     }
 
     startGame() {
@@ -157,4 +168,4 @@ class Game {
 const game = new Game(term);
 game.startGameWithClassSelection();
 
-module.exports = { displayMenu: game.displayMenu };
+module.exports.displayMenu = game.displayMenu;

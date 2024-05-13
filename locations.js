@@ -1,5 +1,5 @@
 const items = require("./items.js");
-const startCombatAtLocation = require("./kampfsystem.js");
+const startCombat = require("./kampfsystem.js");
 
 const locations = {
     "i.2": {
@@ -19,34 +19,29 @@ const locations = {
         //chest: {
         //    contents: [items.items, items.coin, items.sword],
         //},
-        onEntry: startCombatAtLocation,
     },
     "j.4": {
         name: "Wald 1",
         entery: "Du betrittst Wald 1",
         description: "----",
-        onEntry: startCombatAtLocation,
     },
 
     "k.4": {
         name: "Wald 2",
         entery: "Du betrittst Wald 2",
         description: "----",
-        onEntry: startCombatAtLocation,
     },
 
     "k.3": {
         name: "Wald 3",
         entery: "Du betrittst Wald 3",
         description: "----",
-        onEntry: startCombatAtLocation,
     },
 
     "k.2": {
         name: "Wald 4",
         entery: "Du betrittst Wald 4",
         description: "----",
-        onEntry: startCombatAtLocation,
     },
     "l.4": {
         name: "Wald 5",
