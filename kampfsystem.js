@@ -2,6 +2,7 @@ const term = require("terminal-kit").terminal;
 const { normalEnemys, endEnemys } = require("./enemy.js");
 const { Paladin, Mage, Waldläufer } = require("./klassen.js");
 const locations = require("./locations.js");
+const displayMenu = require("./main.js");
 
 function getRandomWeightedIndex(weights) {
     const totalWeight = weights.reduce((acc, val) => acc + val, 0);
@@ -85,93 +86,106 @@ class Player {
     }
 }
 
-function performEnemyAttack(enemy, player) {
+function performEnemyAttack(enemy) {
     // Wähle eine zufällige Fähigkeit des Gegners aus
     const randomIndex = Math.floor(Math.random() * enemy.abilities.length);
     const ability = enemy.abilities[randomIndex];
     const damage = ability.damage;
 }
-function getRandomLocation() {
-    const keys = Object.keys(locations);
-    const randomKey = keys[Math.floor(Math.random() * keys.length)];
-    return locations[randomKey];
-}
 
-function safeZone() {
-    return location.name === "Shop" || location.name.startsWith("Dorf");
-}
+startCombat();
+async function startCombat(player, enemy) {
+    const enemyKeys = Object.keys(normalEnemys);
+    const totalEnemies = enemyKeys.length;
 
-function startRandomCombat() {
-    let randomLocation = getRandomLocation();
-    while (safeZone(randomLocation)) {
-        randomLocation = getRandomLocation();
-    }
-    term(`Ein Kampf beginnt hier: ${randomLocation.name}`);
-    async function startCombat(player, enemy) {
+    // Berechne die Wahrscheinlichkeiten für die Auswahl eines Gegners
+    const probabilities = enemyKeys.map((enemy) => {
+        const hp = normalEnemys[enemy].hp;
+        // Setze die Wahrscheinlichkeit basierend auf der HP
+        // Hier könntest du die Logik anpassen, um die Wahrscheinlichkeiten entsprechend deiner Anforderungen zu definieren
+        return hp < 550 ? 0.6 : 0.4;
+    });
+
+    // Wähle einen zufälligen Index basierend auf den Wahrscheinlichkeiten
+    const randomIndex = getRandomWeightedIndex(probabilities);
+    const randomEnemy = enemyKeys[randomIndex];
+
+    term(
+        `^Y!!! ^RDer Kampf beginnt ^Y!!!\n^BDein Gegner: ^Y${randomEnemy.name}\n`
+    );
+
+    // Speichere den ursprünglichen HP-Wert des Spielers
+    const originalPlayerHP = Player.hp;
+    const originalEnemyHP = randomEnemy.hp;
+
+    while (Player.hp > 0 && randomEnemy.hp > 0) {
+        // Spieler wählt eine Fähigkeit
+        const abilityIndex = await player.chooseAbility();
+        const ability = player.abilities[abilityIndex];
+        const playerDamage = ability.damage + player.attack;
+
+        // Reduziere die HP des Gegners basierend auf dem Spielerangriff
+        enemy.hp -= playerDamage;
+
+        // Überprüfen, ob der Gegner besiegt wurde
+        if (enemy.hp <= 0) {
+            term.green("\nDu hast den Gegner besiegt!\n");
+            break; // Beende die Schleife, da der Kampf vorbei ist
+        }
+
+        // Gegner greift an
+        performEnemyAttack(enemy, player);
+
+        // Berechne den Schaden, den der Gegner verursacht
+        const enemyAbility =
+            enemy.abilities[Math.floor(Math.random() * enemy.abilities.length)];
+        const enemyDamage = enemyAbility.damage + enemy.attack;
+
+        // Reduziere die HP des Spielers basierend auf dem Gegnerangriff
+        player.takeDamage(enemyDamage);
+
+        // Anzeige von Kampfaktionen
+        term.clear();
         term(
-            `^Y!!! ^RDer Kampf beginnt ^Y!!!\n^BDein Gegner: ^Y${enemy.name}\n`
+            `\n^B${player.name} greift an mit ^Y${ability.name}^B:\n${ability.details} ^R${playerDamage} ^BSchaden.\n`
+        );
+        term(`^B${enemy.name} ^YHP: ^R${enemy.hp}/${originalEnemyHP}\n`);
+        term(
+            `^B${enemy.name} greift an mit ^Y${enemyAbility.name} ^Bund verursacht ^R${enemyDamage} ^BSchaden.\n`
         );
 
-        // Speichere den ursprünglichen HP-Wert des Spielers
-        const originalPlayerHP = player.hp;
-        const originalEnemyHP = enemy.hp;
+        // Anzeige des aktuellen und ursprünglichen HP-Werts des Spielers
+        term(`^B${player.name} ^YHP: ^R${player.hp}/${originalPlayerHP}\n`);
 
-        while (player.hp > 0 && enemy.hp > 0) {
-            // Spieler wählt eine Fähigkeit
-            const abilityIndex = await player.chooseAbility();
-            const ability = player.abilities[abilityIndex];
-            const playerDamage = ability.damage + player.attack;
-
-            // Reduziere die HP des Gegners basierend auf dem Spielerangriff
-            enemy.hp -= playerDamage;
-
-            // Überprüfen, ob der Gegner besiegt wurde
-            if (enemy.hp <= 0) {
-                term.green("\nDu hast den Gegner besiegt!\n");
-                break; // Beende die Schleife, da der Kampf vorbei ist
-            }
-
-            // Gegner greift an
-            performEnemyAttack(enemy, player);
-
-            // Berechne den Schaden, den der Gegner verursacht
-            const enemyAbility =
-                enemy.abilities[
-                    Math.floor(Math.random() * enemy.abilities.length)
-                ];
-            const enemyDamage = enemyAbility.damage + enemy.attack;
-
-            // Reduziere die HP des Spielers basierend auf dem Gegnerangriff
-            player.takeDamage(enemyDamage);
-
-            // Anzeige von Kampfaktionen
-            term.clear();
-            term(
-                `\n^B${player.name} greift an mit ^Y${ability.name}^B:\n${ability.details} ^R${playerDamage} ^BSchaden.\n`
-            );
-            term(`^B${enemy.name} ^YHP: ^R${enemy.hp}/${originalEnemyHP}\n`);
-            term(
-                `^B${enemy.name} greift an mit ^Y${enemyAbility.name} ^Bund verursacht ^R${enemyDamage} ^BSchaden.\n`
-            );
-
-            // Anzeige des aktuellen und ursprünglichen HP-Werts des Spielers
-            term(`^B${player.name} ^YHP: ^R${player.hp}/${originalPlayerHP}\n`);
-
-            // Überprüfen, ob der Spieler besiegt wurde
-            if (player.hp <= 0) {
-                term.red("\nDu wurdest besiegt!\n");
-            }
+        // Überprüfen, ob der Spieler besiegt wurde
+        if (player.hp <= 0) {
+            term.red("\nDu wurdest besiegt!\n");
         }
     }
 }
-
-const player = new Player("Max", "Waldläufer");
-player.setClassStats();
 
 const normalEnemysKeys = Object.keys(normalEnemys);
 const randomIndex = Math.floor(Math.random() * normalEnemysKeys.length);
 const randomEnemyKey = normalEnemysKeys[randomIndex];
 const randomEnemy = normalEnemys[randomEnemyKey];
 
-startCombat(player, randomEnemy);
-startRandomCombat();
+function startCombatAtLocation(location) {
+    if (location && location.enemy) {
+        const player = Player; // Spieler erstellen
+        player.setClassStats();
+
+        const enemyName = location.enemy;
+        const enemy = randomEnemy[enemyName];
+
+        term(`Ein Kampf beginnt hier: ${location.name}\n`);
+
+        startCombat(player, enemy).then(() => {
+            // Nach dem Kampf wieder das Hauptmenü anzeigen
+            displayMenu();
+        });
+    } else {
+        term("Diese Location hat keinen Gegner.\n");
+    }
+}
+
+module.exports = startCombatAtLocation;

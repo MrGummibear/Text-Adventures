@@ -22,9 +22,9 @@ class Paladin extends Player {
     constructor(name) {
         super(name, "Paladin");
         this.hp = 900;
-        this.attack = 8;
+        this.startItem = items.sword;
+        this.attack = 8 + this.startItem.atk;
         this.defense = 5;
-        this.startItem = "Langschwert";
         this.abilities = [
             {
                 name: "Kreuzfahrerhieb",
@@ -48,8 +48,10 @@ class Paladin extends Player {
             },
         ];
         this.damage = this.attack + this.abilities[0].damage; // Beispiel: Zugriff auf den Schaden des ersten Angriffs
+        console.log(this.attack);
     }
 }
+new Paladin("Peter");
 
 class Mage extends Player {
     constructor(name) {

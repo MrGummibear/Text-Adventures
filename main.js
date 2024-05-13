@@ -119,10 +119,12 @@ class Game {
     displayInventory() {
         console.info("Inventory: ", this.player.inventory);
 
-            const options = ["", "zurück"];
-            term.clear();
-            //console.log(this.player.inventory);
-            term.singleColumnMenu([...this.player.inventory, ...options], (error, response) => {
+        const options = ["", "zurück"];
+        term.clear();
+        //console.log(this.player.inventory);
+        term.singleColumnMenu(
+            [...this.player.inventory, ...options],
+            (error, response) => {
                 const choice = response.selectedText.trim();
                 if (choice === "Inventar") {
                     this.displayInventory();
@@ -131,10 +133,9 @@ class Game {
                 } else {
                     this.moveMenu();
                 }
-            });
-
-
-        }
+            }
+        );
+    }
 
     move(direction) {
         move.call(direction);
@@ -155,3 +156,5 @@ class Game {
 }
 const game = new Game(term);
 game.startGameWithClassSelection();
+
+module.exports = { displayMenu: game.displayMenu };
