@@ -16,9 +16,9 @@ const locations = {
         name: "Kreuzung",
         entery: "Du betrittst die Kreuzung",
         description: "----",
-        //chest: {
-        //    contents: [items.items, items.coin, items.sword],
-        //},
+        chest: {
+            contents: [items.healPotion, items.coin, items.sword],
+        },
     },
     "j.4": {
         name: "Wald 1",
