@@ -21,8 +21,6 @@ function move(direction) {
         this.player.currentLocation = newLocation;
         try {
             this.locations[this.player.currentLocation].onEntry();
-            console.log(this.locations[newLocation]);
-            process.exit();
         } catch (e) {
             console.log(this.locations[newLocation]);
             console.log("fail", e);
@@ -42,8 +40,11 @@ function move(direction) {
             this.displayMenu();
         }
     } else {
+        term.clear();
         term.red(`Der Weg ist blockiert. Bitte wähle einen anderen!\n`);
-        this.displayMenu();
+        setTimeout(() => {
+            this.displayMenu();
+        }, 3000); // 3000 Millisekunden Verzögerung
     }
 }
 
