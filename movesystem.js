@@ -19,13 +19,7 @@ function move(direction) {
 
     if (this.locations[newLocation]) {
         this.player.currentLocation = newLocation;
-        try {
-            this.locations[this.player.currentLocation].onEntry();
-
-        } catch (e) {
-
-        }
-        this.displayLocation(newLocation);
+         this.displayLocation(newLocation);
         if (this.locations[newLocation].chest) {
             const choiceItems = ["Aufschließen", "Weitermachen"];
             term.singleColumnMenu(choiceItems, (error, response) => {
@@ -39,8 +33,11 @@ function move(direction) {
             this.displayMenu();
         }
     } else {
+        term.clear();
         term.red(`Der Weg ist blockiert. Bitte wähle einen anderen!\n`);
-        this.displayMenu();
+        setTimeout(() => {
+            this.displayMenu();
+        }, 3000); // 3000 Millisekunden Verzögerung
     }
 }
 
