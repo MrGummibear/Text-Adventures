@@ -45,7 +45,7 @@ class Paladin extends Player {
         this.abilities = [
             {
                 name: "Kreuzfahrerhieb",
-                damage: 50,
+                damage: 40,
                 details: `Umhüllt die Waffe mit heiliger kraft, schlägt dann zu und verursachst:`,
             },
             {
@@ -55,13 +55,13 @@ class Paladin extends Player {
             },
             {
                 name: "Göttliches Urteil",
-                damage: 50,
+                damage: 60,
                 details: `Bringt die Schandtaten des Gegners hervor und verursachst:`,
             },
             {
-                name: "Heilige Hand",
-                heal: 50,
-                details: `Heilt sich selbst mit seiner heilige macht um ${this.heal} HP`,
+                name: "Sühne",
+                damage: 70,
+                details: `Lässt den gegner für seine Vergehen bühsen und verursachst:`,
             },
         ];
         this.damage = this.attack + this.abilities[0].damage; // Beispiel: Zugriff auf den Schaden des ersten Angriffs
@@ -106,29 +106,29 @@ class Mage extends Player {
 class Waldläufer extends Player {
     constructor(name) {
         super(name, "Waldläufer");
-        this.hp = 800;
+        this.hp = 750;
         this.startItem = items.bogen;
         this.attack = 5 + this.startItem.atk;
         this.defense = 6;
         this.abilities = [
             {
                 name: "Wuchtpfeil",
-                damage: 45,
+                damage: 50,
                 details: `Feuert einen mächtigen Pfeil ab und verursachst:`,
             },
             {
                 name: "Pfeil Salve",
-                damage: 55,
+                damage: 60,
                 details: `Feuert 4 Pfeile nacheinander ab und verursachst:`,
             },
             {
                 name: "Tosender Schuss",
-                damage: 65,
+                damage: 70,
                 details: `Ladet Euren Pfeil mit Energie der Waldgeister auf bevor Ihr diesen abfeuert und verursachst:`,
             },
             {
                 name: "Bindender Pfeil",
-                damage: 70,
+                damage: 80,
                 details: `Feuert einen Schlingenpfeil ab, der Ranken aus der Erde erscheinen lässt, der getroffene Feinde umschlingt und verursachst:`,
             },
         ];

@@ -28,9 +28,9 @@ async function startCombat(currentPlayer) {
         enemyHP -= playerDamage;
 
         if (enemyHP <= 0) {
-            term.green("\nDu hast den Gegner besiegt!\n");
+            term("\n^BDu hast den ^RGegner ^Gbesiegt!\n");
             setTimeout(() => {
-                displayMenu.displayMenu(currentPlayer);
+                displayMenu.displayMenu();
             }, 1000);
         }
 

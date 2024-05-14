@@ -66,7 +66,7 @@ class Game {
             if (response.selectedText.trim() === "Ja") {
                 term.clear();
                 term.cyan(`Viel Erfolg auf deinen Reisen!\n`);
-                this.displayMenu();
+                this.startGame();
             } else {
                 term.cyan(`Bis bald!\n`);
                 process.exit();
@@ -74,16 +74,19 @@ class Game {
         });
     }
 
-    displayLocation(location) {
+    displayLocation() {
         term.clear();
-        term.cyan(this.locations[location].description + "\n");
-        if (this.locations[location].chest) {
+        term.cyan(
+            this.locations[this.player.currentLocation].description + "\n"
+        );
+        if (this.locations[this.player.currentLocation].chest) {
             term("Du entdeckst eine Truhe!\n");
         }
     }
 
-    openChest(location) {
-        const chestContents = this.locations[location].chest.contents;
+    openChest() {
+        const chestContents =
+            this.locations[this.player.currentLocation].chest.contents;
         term("\nDu öffnest die Truhe und findest:\n");
         chestContents.forEach((item) => {
             term.green(`- ${item.name}\n`);
@@ -93,8 +96,8 @@ class Game {
             if (response.selectedText.trim() === "Einpacken") {
                 term.clear();
                 term.cyan(`Gegenstände wurden in dein Inventar gepackt\n`);
-                this.displayMenu();
                 this.player.inventory.push(...chestContents);
+                this.displayMenu();
             }
         });
     }
@@ -120,44 +123,31 @@ class Game {
 
     displayInventory() {
         term.clear();
-
-   const playerInv =  this.player.inventory.map((item) => item.name)
-        console.log( "Benutze etwas ... " )
+        const playerInv = this.player.inventory.map((item) => item.name);
+        console.log("Benutze etwas ... ");
         const options = ["zurück"];
-        console.log( this.player.inventory)
-        term.singleColumnMenu(
-            [...playerInv, ...options],
-            (error, response) => {
-              //  console.log("xxx ",response);
-                const choice = response.selectedText.trim();
-                if (choice === "zurück") {
-                    this.displayMenu();
-                } else {
-                   const x =  this.player.inventory.filter((item) => {
-                        return item.name == choice
-                   })
-                    console.log("xxx ",  this.player);
-                    if(x[0]?.atk > 0) {
-                        //console.info("waffe")
-                        this.startItem = x
-                    } else if(x[0]?.hp > 0) {
-                       // console.info("heil")
-                        this.player.hp = this.player.hp + x[0].hp
-                    }
-                    console.log(this.player);
-
+        console.log(this.player.inventory);
+        term.singleColumnMenu([...playerInv, ...options], (error, response) => {
+            const choice = response.selectedText.trim();
+            if (choice === "zurück") {
+                this.displayMenu();
+            } else {
+                const x = this.player.inventory.filter(
+                    (item) => item.name == choice
+                );
+                console.log("xxx ", this.player);
+                if (x[0]?.atk > 0) {
+                    this.startItem = x;
+                } else if (x[0]?.hp > 0) {
+                    this.player.hp += x[0].hp;
                 }
+                console.log(this.player);
             }
-        );
+        });
     }
-
 
     move(direction) {
-        move.call(direction);
-    }
-
-    startCombat() {
-        startCombat.call(this);
+        move.call(this, direction);
     }
 
     lookAround() {
@@ -168,17 +158,19 @@ class Game {
         this.moveCounter += Math.floor(Math.random() * 3) + 1;
         if (this.moveCounter >= 10) {
             startCombat(this.player);
+            this.moveCounter = 1;
         } else {
             moveMenu.call(this);
         }
     }
 
     startGame() {
-        this.displayLocation(this.player.currentLocation);
+        this.displayLocation();
         this.displayMenu();
     }
 }
+
 const game = new Game(term);
 game.startGameWithClassSelection();
 
-module.exports.displayMenu = game.displayMenu;
+module.exports.displayMenu = game.displayMenu.bind(game);
