@@ -106,7 +106,7 @@ class Game {
         const options = ["Inventar", "Umsehen", "Bewegen"];
         term.clear();
         term.cyan(
-            `Standort: ${this.locations[this.player.currentLocation].entery}\n`
+            `Standort: ${this.locations[this.player.currentLocation].entry}\n`
         );
         term.green(this.moveCounter);
         term.singleColumnMenu(options, (error, response) => {
@@ -156,7 +156,11 @@ class Game {
 
     moveMenu() {
         this.moveCounter += Math.floor(Math.random() * 3) + 1;
-        if (this.moveCounter >= 10) {
+        const noCombatPositions = ["i.2", "i.3", "i.4"];
+        if (
+            this.moveCounter >= 10 &&
+            !noCombatPositions.includes(this.player.currentLocation)
+        ) {
             startCombat(this.player);
             this.moveCounter = 1;
         } else {
