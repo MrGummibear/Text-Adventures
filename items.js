@@ -4,6 +4,11 @@ const items = {
         atk: 10,
         goldPrice: 50,
     },
+    bow: {
+        name: "Bogen",
+        atk: 9,
+        goldPrice: 40,
+    },
     staff: {
         name: "Stab",
         atk: 8,
@@ -22,8 +27,7 @@ const items = {
     },
     coin: {
         name: "Goldmünzen",
-        amount: 1
-
+        amount: 1,
     },
 };
 

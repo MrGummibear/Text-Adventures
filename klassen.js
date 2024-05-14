@@ -107,7 +107,7 @@ class Waldläufer extends Player {
     constructor(name) {
         super(name, "Waldläufer");
         this.hp = 750;
-        this.startItem = items.bogen;
+        this.startItem = items.bow;
         this.attack = 5 + this.startItem.atk;
         this.defense = 6;
         this.abilities = [
