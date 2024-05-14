@@ -1,7 +1,6 @@
 const term = require("terminal-kit").terminal;
 const readline = require("readline");
 const { Paladin, Mage, Waldläufer, Player } = require("./klassen.js");
-const { normalEnemys, endEnemys } = require("./enemy.js");
 const locations = require("./locations.js");
 const items = require("./items.js");
 const { move, lookAround, moveMenu } = require("./movesystem.js");
