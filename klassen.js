@@ -64,7 +64,7 @@ class Paladin extends Player {
                 details: `Lässt den gegner für seine Vergehen bühsen und verursachst:`,
             },
         ];
-        this.damage = this.attack + this.abilities[0].damage; // Beispiel: Zugriff auf den Schaden des ersten Angriffs
+        this.damage = this.attack + this.abilities[0].damage;
         console.log(this.attack);
     }
 }
@@ -98,7 +98,7 @@ class Mage extends Player {
                 details: `Ihr manifestiert eure magische kraft, sammelt dies an und entfesselt diese in einem Orkan und verursachst:`,
             },
         ];
-        this.damage = this.attack + this.abilities[0].damage; // Beispiel: Zugriff auf den Schaden des ersten Angriffs
+        this.damage = this.attack + this.abilities[0].damage;
     }
 }
 
@@ -131,7 +131,7 @@ class Waldläufer extends Player {
                 details: `Feuert einen Schlingenpfeil ab, der Ranken aus der Erde erscheinen lässt, der getroffene Feinde umschlingt und verursachst:`,
             },
         ];
-        this.damage = this.attack + this.abilities[0].damage; // Beispiel: Zugriff auf den Schaden des ersten Angriffs
+        this.damage = this.attack + this.abilities[0].damage;
     }
 }
 
