@@ -37,7 +37,7 @@ function move(direction) {
         term.red(`Der Weg ist blockiert. Bitte wähle einen anderen!\n`);
         setTimeout(() => {
             this.displayMenu();
-        }, 2000); // 2000 Millisekunden Verzögerung
+        }, 2000);
     }
 }
 

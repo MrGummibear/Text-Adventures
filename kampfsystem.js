@@ -4,8 +4,8 @@ const locations = require("./locations.js");
 const displayMenu = require("./main.js");
 
 function getRandomEnemy() {
-    const enemyKeys = Object.keys(normalEnemys); // Schlüssel (Namen) aller Gegner werden im Objekt normalEnemys in einem Array enemyKeys gespeichert.
-    const randomIndex = Math.floor(Math.random() * enemyKeys.length); //  Zufallszahl zwischen 0 und der Anzahl der Gegner
+    const enemyKeys = Object.keys(normalEnemys);
+    const randomIndex = Math.floor(Math.random() * enemyKeys.length);
     const randomEnemyKey = enemyKeys[randomIndex];
     return normalEnemys[randomEnemyKey];
 }
