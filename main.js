@@ -23,13 +23,13 @@ class Game {
 
     startGameWithClassSelection() {
         term.clear();
-        term.cyan("Hallo, Fremdling, du hast mich erschreckt!!\n");
-        term.cyan("Wie ist dein Name?\n");
+        term.cyan(`^BHallo, ^YFremdling^B, du hast mich ^Rerschreckt!!\n`);
+        term.cyan(`^BWie ist dein ^YName?\n`);
         rl.question("", (name) => {
             this.player = new Player(name);
             term.clear();
             term.cyan(
-                `Willkommen, ${this.player.name}! Teile uns doch mit,\nin welchem Handwerk du besonders bewandert bist!!\n`
+                `^GWillkommen, ^Y${this.player.name}! ^BTeile uns doch mit,\nin welchem ^YHandwerk ^Bdu besonders bewandert bist!!\n`
             );
             this.displayClassMenu();
         });
@@ -60,8 +60,10 @@ class Game {
 
     confirmStart() {
         term.clear();
-        term.cyan(`Willkommen im Dorf der Anfänge, ${this.player.name}!\n`);
-        term.cyan(`Möchtest du deine Reise beginnen?`);
+        term.cyan(
+            `^GWillkommen ^Bim Dorf der ^YAnfänge^B, ${this.player.name}!\n`
+        );
+        term.cyan(`^BMöchtest du deine ^YReise ^Bbeginnen?`);
         term.singleColumnMenu(["Ja", "Nein"], (error, response) => {
             if (response.selectedText.trim() === "Ja") {
                 term.clear();
@@ -76,18 +78,16 @@ class Game {
 
     displayLocation() {
         term.clear();
-        term.cyan(
-            this.locations[this.player.currentLocation].description + "\n"
-        );
+        term.blue(this.locations[this.player.currentLocation].entry + "\n");
         if (this.locations[this.player.currentLocation].chest) {
-            term("Du entdeckst eine Truhe!\n");
+            term(`^Bund entdeckst eine ^YTruhe!\n`);
         }
     }
 
     openChest() {
         const chestContents =
             this.locations[this.player.currentLocation].chest.contents;
-        term("\nDu öffnest die Truhe und findest:\n");
+        term(`\n^BDu ^Möffnest ^Bdie ^YTruhe ^Bund findest:\n`);
         chestContents.forEach((item) => {
             term.green(`- ${item.name}\n`);
         });
@@ -95,7 +95,9 @@ class Game {
         term.singleColumnMenu(["Einpacken"], (error, response) => {
             if (response.selectedText.trim() === "Einpacken") {
                 term.clear();
-                term.cyan(`Gegenstände wurden in dein Inventar gepackt\n`);
+                term.cyan(
+                    `^YGegenstände ^Bwurden in dein ^CInventar ^Bgepackt\n`
+                );
                 this.player.inventory.push(...chestContents);
                 this.displayMenu();
             }
@@ -105,10 +107,12 @@ class Game {
     displayMenu() {
         const options = ["Inventar", "Umsehen", "Bewegen"];
         term.clear();
-        term.cyan(
-            `Standort: ${this.locations[this.player.currentLocation].entry}\n`
+        term(
+            `^YStandort: ^B${
+                this.locations[this.player.currentLocation].entry
+            }\n`
         );
-        term.green(this.moveCounter);
+        //term.green(this.moveCounter);
         term.singleColumnMenu(options, (error, response) => {
             const choice = response.selectedText.trim();
             if (choice === "Inventar") {
@@ -126,7 +130,7 @@ class Game {
         const playerInv = this.player.inventory.map((item) => item.name);
         console.log("Benutze etwas ... ");
         const options = ["zurück"];
-        console.log(this.player.inventory);
+        //console.log(this.player.inventory);
         term.singleColumnMenu([...playerInv, ...options], (error, response) => {
             const choice = response.selectedText.trim();
             if (choice === "zurück") {

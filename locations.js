@@ -16,9 +16,9 @@ const locations = {
         name: "Kreuzung",
         entry: "Du betrittst die Kreuzung",
         description: "----",
-        chest: {
-            contents: [items.healPotion, items.coin, items.sword],
-        },
+        //chest: {
+        //  contents: [items.healPotion, items.coin, items.sword],
+        //},
     },
     "j.4": {
         name: "Wald 1",
@@ -188,7 +188,7 @@ const locations = {
         entry: "Du betrittst Stadt 1",
         description: "----",
         chest: {
-            contents: ["Heiltrank", "Goldmünzen", "Schwert"],
+            contents: [items.healPotion, items.coin],
         },
     },
     "i.7": {

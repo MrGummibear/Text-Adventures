@@ -68,7 +68,6 @@ class Paladin extends Player {
         console.log(this.attack);
     }
 }
-new Paladin("Peter");
 
 class Mage extends Player {
     constructor(name) {
