@@ -4,8 +4,8 @@ const locations = require("./locations.js");
 const displayMenu = require("./main.js");
 
 function getRandomEnemy() {
-    const enemyKeys = Object.keys(normalEnemys);
-    const randomIndex = Math.floor(Math.random() * enemyKeys.length);
+    const enemyKeys = Object.keys(normalEnemys); // Schlüssel (Namen) aller Gegner werden im Objekt normalEnemys in einem Array enemyKeys gespeichert.
+    const randomIndex = Math.floor(Math.random() * enemyKeys.length); //  Zufallszahl zwischen 0 und der Anzahl der Gegner
     const randomEnemyKey = enemyKeys[randomIndex];
     return normalEnemys[randomEnemyKey];
 }
@@ -13,7 +13,9 @@ function getRandomEnemy() {
 async function startCombat(currentPlayer) {
     const enemy = getRandomEnemy();
     term.clear();
-    term(`^Y!!! ^RDer Kampf beginnt ^Y!!!\n^BDein Gegner: ^Y${enemy.name}\n`);
+    term(
+        `^BEin ^YGegner ^Bstellt sich dir in den weg\n^BDein ^YGegner: ^R${enemy.name}\n^BDer ^RKampf ^Bbeginnt ^Y!!!\n`
+    );
 
     let playerHP = currentPlayer.hp;
     let enemyHP = enemy.hp;
@@ -27,10 +29,11 @@ async function startCombat(currentPlayer) {
         enemyHP -= playerDamage;
 
         if (enemyHP <= 0) {
+            term.clear();
             term("\n^BDu hast den ^RGegner ^Gbesiegt!\n");
             setTimeout(() => {
                 displayMenu.displayMenu();
-            }, 1000);
+            }, 2000);
         }
 
         const enemyAbilityIndex = Math.floor(

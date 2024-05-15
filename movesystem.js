@@ -77,7 +77,7 @@ function lookAround() {
 
 function moveMenu() {
     const direction = [
-        "gehe nach norden",
+        `gehe nach norden`,
         "gehe nach osten",
         "gehe nach süden",
         "gehe nach westen",
