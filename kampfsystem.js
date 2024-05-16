@@ -22,7 +22,7 @@ async function startCombat(currentPlayer) {
 
     while (playerHP > 0 && enemyHP > 0) {
         // Spieler wählt eine Fähigkeit
-        const abilityIndex = await currentPlayer.chooseAbility(); // wartet auf Fähileiten auswahl
+        const abilityIndex = await currentPlayer.chooseAbility(); // wartet auf Fähigkeiten auswahl
         const ability = currentPlayer.abilities[abilityIndex]; // speichert die gewählte Fähigkeit.
         const playerDamage = ability.damage + currentPlayer.attack; // schadens Berechnung
 
