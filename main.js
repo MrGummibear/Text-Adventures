@@ -7,8 +7,8 @@ const { move, lookAround, moveMenu } = require("./movesystem.js");
 const { startCombat } = require("./kampfsystem.js");
 
 const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
+    input: process.stdin, //  Kommandozeile Eingegeben / stdin = (standard input stream)
+    output: process.stdout, // Kommandozeile Ausgabe / stddout = (standard output stream)
 });
 
 class Game {
@@ -148,7 +148,7 @@ class Game {
                 const x = this.player.inventory.filter(
                     (item) => item.name == choice
                 );
-               // console.log("xxx ", this.player);
+                // console.log("xxx ", this.player);
                 if (x[0]?.atk > 0) {
                     // Wenn der gewählte Gegenstand Angriff (atk) oder Lebenspunkte (hp) erhöht, wird dies entsprechend angepasst.
                     this.startItem = x;
