@@ -147,7 +147,7 @@ class Game {
                 const x = this.player.inventory.filter(
                     (item) => item.name == choice
                 );
-                console.log("xxx ", this.player);
+               // console.log("xxx ", this.player);
                 if (x[0]?.atk > 0) {
                     // Wenn der gewählte Gegenstand Angriff (atk) oder Lebenspunkte (hp) erhöht, wird dies entsprechend angepasst.
                     this.startItem = x;
