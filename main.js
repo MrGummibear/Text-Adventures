@@ -90,6 +90,7 @@ class Game {
     openChest() {
         const chestContents =
             this.locations[this.player.currentLocation].chest.contents;
+        term.clear();
         term(`\n^BDu ^Möffnest ^Bdie ^YTruhe ^Bund findest:\n`);
         chestContents.forEach((item) => {
             // Öffnet eine Truhe und zeigt deren Inhalt an.

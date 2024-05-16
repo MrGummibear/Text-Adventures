@@ -73,9 +73,11 @@ function lookAround() {
         const newLocation = `${String.fromCharCode(newRow)}.${newCol}`; // wandelt den numerischen ASCII-Wert zurück in das entsprechende Zeichen
 
         if (this.locations[newLocation]) {
-            term.green(`- ${direction}: ${this.locations[newLocation].name}\n`); // Wenn die neue Position gültig ist und ein weg exestiert
+            term.green(
+                `- im ${direction}: ${this.locations[newLocation].name}\n`
+            ); // Wenn die neue Position gültig ist und ein weg exestiert
         } else {
-            term.red(`- ${direction}: Blockiert\n`); // Wenn die neue Position ungültig ist und kein weg exestiert
+            term.red(`- im ${direction}: Blockiert\n`); // Wenn die neue Position ungültig ist und kein weg exestiert
         }
     });
 
